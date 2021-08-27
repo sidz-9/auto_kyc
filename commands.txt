@@ -1,0 +1,91 @@
+created a new project in pycharm called django demo
+
+
+# Install Django and Django REST framework
+pip install django
+pip install djangorestframework
+
+
+# created project auto_kyc_demo
+django-admin startproject auto_kyc_demo
+
+cd to auto_kyc_demo
+
+
+# to install mysqlclient
+pip install mysqlclient
+
+
+root@localhost:3306
+root123
+
+
+# in settings.py file update the database string to point towards your database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'schema_1',
+        'USER': 'root',
+        'PASSWORD': 'root123',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+# and then make migrations
+python manage.py migrate
+
+
+# to create kyc_app
+python manage.py startapp kyc_app
+
+
+# add rest_framework and kyc_app to INSTALLED_APPS in settings.py
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'rest_framework',
+    'kyc_app'
+]
+
+
+# create model in models.py file
+class user_details(models.Model):
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    mobile_number = models.CharField(max_length=10)
+    user_id = models.IntegerField()
+
+    def __str__(self):
+        return '__all__'
+
+# register model in admin.py file
+from . models import user_details
+admin.site.register(user_details)
+
+# make migrations
+python manage.py makemigrations
+
+# and then migrate
+python manage.py migrate
+
+# create a super user to access it from admin site
+python manage.py createsuperuser
+admin
+admin123
+
+
+# run server
+python manage.py runserver
+
+# add user_details objects to table
+
+# create a serializers.py file to send table data in a json response
+
+# add your view in views.py file
+
+# link your view to a url in urls.py
